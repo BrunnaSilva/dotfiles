@@ -1,0 +1,90 @@
+# espanso match file
+
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+# You can use this file to define the base matches (aka snippets)
+# that will be available in every application when using espanso.
+
+# Matches are substitution rules: when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Simple text replacement
+  - trigger: ":espanso"
+    replace: "Hi there!"
+
+  # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
+
+  # But matches can also be dynamic:
+
+  # Print the current date
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%m/%d/%Y"
+
+  # Print the output of a shell command
+  - trigger: ":shell"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo 'Hello from your shell'"
+
+  # And much more! For more information, visit the docs: https://espanso.org/docs/
+  - trigger: ";email"
+    replace: "{{email}}"
+    vars:
+      - name: email
+        type: shell
+        params:
+          cmd: 'echo "bs-test-$((RANDOM % 1000)).$((RANDOM % 1000))@gmail.com"'
+
+  - trigger: ;phone
+    replace: (79) 99999-9999
+
+  - trigger: ;name
+    replace: Maria Teste
+
+  - trigger: ;mother
+    replace: Josefa Teste
+
+  - label: ";cep"
+    replace: '{{cep}}'
+    trigger: ;cep
+    vars:
+      - name: cep
+        type: random
+        params:
+          choices:
+            - 01311-000
+            - 49010-050
+
+  - trigger: ";cpf"
+    replace: "{{cpf}}"
+    vars:
+      - name: cpf
+        type: shell
+        params:
+          cmd: "funcoeszz cpf" # install the script available at http://funcoeszz.net/download/
+
+  - trigger: ";cnpj"
+    replace: "{{cnpj}}"
+    vars:
+      - name: cnpj
+        type: shell
+        params:
+          cmd: "funcoeszz cnpj" # install the script available at http://funcoeszz.net/download/
+
+  - trigger: ;lorem
+    replace: "Lorem Ipsum is simply dummy text of the printing and typesetting 
+    industry. Lorem Ipsum has been the industry's standard dummy text ever since
+    the 1500s, when an unknown printer took a galley of type and scrambled it 
+    to make a type specimen book. It has survived not only five centuries, 
+    but also the leap into electronic typesetting, remaining essentially unchanged. 
+    It was popularised in the 1960s with the release of Letraset sheets containing 
+    Lorem Ipsum passages, and more recently with desktop publishing software 
+    like Aldus PageMaker including versions of Lorem Ipsum."
